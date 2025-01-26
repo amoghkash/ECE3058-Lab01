@@ -152,6 +152,18 @@ module Decode (
         endcase
       end
 
+      OPCODE_JAL: begin
+        /**
+        * Jump and Link Instruction
+        * Saves the value of PC+4 into rd
+        * Adds a signed offset to PC to jump
+        */
+        operand_a_select = PC;
+        operand_b_select = J_IMMD;
+        alu_operator_op = ALU_ADD;
+        writeback_mux = READ_PC4;
+        pc_mux_op = ALU_RESULT;
+      end
     endcase
   end
 
@@ -167,6 +179,7 @@ module Decode (
   always @(*) begin
     case(operand_a_select)
       REG_A: alu_operand_a_ex_op = regfile_a_out;
+      PC: alu_operand_a_ex_op = pc;
       default: alu_operand_a_ex_op = 32'bz;
     endcase
   end
@@ -176,6 +189,7 @@ module Decode (
       REG: alu_operand_b_ex_op = regfile_b_out;
       I_IMMD: alu_operand_b_ex_op = $signed(valid_instr_to_decode[I_IMM_MSB:I_IMM_LSB]);
       S_IMMD: alu_operand_b_ex_op = $signed({valid_instr_to_decode[I_IMM_MSB:25],valid_instr_to_decode[REG_DEST_MSB:REG_DEST_LSB]});
+      J_IMMD: alu_operand_b_ex_op = $signed({valid_instr_to_decode[31],valid_instr_to_decode[19:12],valid_instr_to_decode[20],valid_instr_to_decode[30:21], 1'b0});
       default: alu_operand_b_ex_op = 32'bz;
     endcase
   end
@@ -188,11 +202,12 @@ module Decode (
         regfile_write_data = alu_result_ip;
       end
       READ_MEM_RESULT: begin
-        /**
-        * How do we write the result from the memory into the Register File for LOADs? 
-        */
         regfile_write_data_valid = mem_data_valid_ip;
         regfile_write_data = mem_data_ip; 
+      end
+      READ_PC4 : begin
+        regfile_write_data_valid = 1'b1;
+        regfile_write_data = pc4;
       end
       default: begin
         regfile_write_data_valid = 1'b0;

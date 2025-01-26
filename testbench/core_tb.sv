@@ -53,59 +53,23 @@ module Core_tb;
     core_proc.MainMemory.data_RAM[2] = 8'h00;
     core_proc.MainMemory.data_RAM[3] = 8'h00;
 
-    // addi x5, x5, 80
-    core_proc.MainMemory.data_RAM[4] = 8'h05;
-    core_proc.MainMemory.data_RAM[5] = 8'h02;
-    core_proc.MainMemory.data_RAM[6] = 8'h82;
-    core_proc.MainMemory.data_RAM[7] = 8'h93;
+    // addi x6, x6, 45
+    core_proc.MainMemory.data_RAM[4] = 8'h00;
+    core_proc.MainMemory.data_RAM[5] = 8'h43;
+    core_proc.MainMemory.data_RAM[6] = 8'h03;
+    core_proc.MainMemory.data_RAM[7] = 8'h13;
 
-    // addi x4, x5, 20
-	core_proc.MainMemory.data_RAM[8] = 8'h01;
-    core_proc.MainMemory.data_RAM[9] = 8'h42;
-    core_proc.MainMemory.data_RAM[10] = 8'h82;
-    core_proc.MainMemory.data_RAM[11] = 8'h13;
+	// add x7, x6, x6
+    core_proc.MainMemory.data_RAM[8] = 8'h00;
+    core_proc.MainMemory.data_RAM[9] = 8'h63;
+    core_proc.MainMemory.data_RAM[10] = 8'h03;
+    core_proc.MainMemory.data_RAM[11] = 8'hb3;
 
-    // add x10, x5, x4		// x10 = 100
-    core_proc.MainMemory.data_RAM[12] = 8'h00;
-    core_proc.MainMemory.data_RAM[13] = 8'h42;
-    core_proc.MainMemory.data_RAM[14] = 8'h85;
-    core_proc.MainMemory.data_RAM[15] = 8'h33;
-
-    // sub x12, x5, x4		// x12 = 60
-    core_proc.MainMemory.data_RAM[16] = 8'h40;
-    core_proc.MainMemory.data_RAM[17] = 8'h42;
-    core_proc.MainMemory.data_RAM[18] = 8'h86;
-    core_proc.MainMemory.data_RAM[19] = 8'h33;
-
-	// addi x7, x0, 190		// x7 = 190
-	core_proc.MainMemory.data_RAM[20] = 8'h0b;
-    core_proc.MainMemory.data_RAM[21] = 8'he0;
-    core_proc.MainMemory.data_RAM[22] = 8'h03;
-    core_proc.MainMemory.data_RAM[23] = 8'h93;
-
-	// slt x9, x10, x7		// x9 = 1
-    core_proc.MainMemory.data_RAM[24] = 8'h00;
-    core_proc.MainMemory.data_RAM[25] = 8'h75;
-    core_proc.MainMemory.data_RAM[26] = 8'h24;
-    core_proc.MainMemory.data_RAM[27] = 8'hb3;
-
-	// slt x10, x9, x7		// x10 = 1
-    core_proc.MainMemory.data_RAM[28] = 8'h00;
-    core_proc.MainMemory.data_RAM[29] = 8'h74;
-    core_proc.MainMemory.data_RAM[30] = 8'ha5;
-    core_proc.MainMemory.data_RAM[31] = 8'h33;
-
-	// addi x7, x0, -190	// x7 = -190
-    core_proc.MainMemory.data_RAM[32] = 8'hf4;
-    core_proc.MainMemory.data_RAM[33] = 8'h20;
-    core_proc.MainMemory.data_RAM[34] = 8'h03;
-    core_proc.MainMemory.data_RAM[35] = 8'h93;
-
-	// slt x8, x0, x7		// x8 = 0
-    core_proc.MainMemory.data_RAM[36] = 8'h00;
-    core_proc.MainMemory.data_RAM[37] = 8'h70;
-    core_proc.MainMemory.data_RAM[38] = 8'h24;
-    core_proc.MainMemory.data_RAM[39] = 8'h33;
+	// jal x5, -8
+    core_proc.MainMemory.data_RAM[12] = 8'hff;
+    core_proc.MainMemory.data_RAM[13] = 8'h5f;
+    core_proc.MainMemory.data_RAM[14] = 8'hf2;
+    core_proc.MainMemory.data_RAM[15] = 8'hef;
 
 	
 		#5 reset = 1'b0;
