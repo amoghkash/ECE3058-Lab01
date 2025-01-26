@@ -100,6 +100,7 @@ module Decode (
         case({valid_instr_to_decode[31:25], valid_instr_to_decode[14:12]})
           10'b0000_000_000: alu_operator_op = ALU_ADD; // ADD
           10'b0100_000_000: alu_operator_op = ALU_SUB; // SUB
+          10'b0000_000_010: alu_operator_op = ALU_SLTS; // SLT
         endcase
       end
 
